@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="columns is-mobile">
+    <div class="column is-three-fifths is-offset-one-fifth">
+        {% for post_item in post_items %}
+        <div class="card">
+            <div class="card-image">
+                {% if post_item.content.first.file.name|slice:"-3" == 'jpg' or 'png' %}
+                <figure class="image is-4by3">
+                   <a href="{{ post_item.get_absolute_url }}">
+                       <img src="{{ post_item.content.first.file.url }}" alt="Placeholder image"></a>
+                </figure>
+                {% else %}
+                    <a href="{{ post_item.get_absolute_url }}">
+                        <video width='1080' controls="controls" preload="metadata">
+                            <source src="{{ post_item.content.first.file.url }}#t=0.5"type="video/mp4">
+                        </video>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-48x48">
+                            {% if post_item.user.profile.picture%}
+                            <img src="{{ post_item.user.profile.picture.url }}" alt="Placeholder image">
+                            {% else %}
+                            <img src="{%static 'img/profile.jpg' %}" alt="Placeholder image">
+                            {% endif %}
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        {% if post_item.user.profile.first_name%}
+                        <a href="{% url 'profile' post_item.user%}"> <p class="title is-4">@{{ post_item.user.profile.first_name }} {{ post_item.user.profile.last_name }}</a></p>
+                        {% else %}
+                        <a href="{% url 'profile' post_item.user%}"> <p class="title is-4">Unknown</p>
+                        {% endif %}
+                        <p class="subtitle is-6">@{{ post_item.user.username }}</p>
+                        {{ post_item.caption }}
+                    <p>{% for tag in post_item.tags.all %}<a href="#{{ tag.get_absolute_url }}">#{{ tag }}</a>
+                        {% endfor %}
+                    </p>
+                    <br>
+                    <strong> <small>{{ post_item.posted }}</small></strong>
+                    </div>
+
+                <div class="media-right">
+                <a href="{%url 'postlike' post_item.id%}"><i class="material-icons">favorite</i></a>
+                    <p> {{ post_item.likes }} Likes</p>
+            </div>
+                     </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}

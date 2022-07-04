@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="columns is-mobile">
+  <div class="column is-half is-offset-one-quarter">
+
+    <div class="card">
+  <div class="card-content">
+
+    <form method="post" enctype="multipart/form-data" action="" role="form">
+      {% csrf_token %}
+      <h3 class="title is -3"> Edit Profile </h3>
+      <div class="row">
+
+        <div class="field">
+      <label class="label is-medium">Choose your Picture </label>
+          <div class="file is boxed">
+      {{ form.picture }}
+      </div>
+        </div>
+
+         <div class="field">
+      <label class="label is-medium">First Name</label>
+          <div class="control">
+        {{ form.first_name }}
+      </div>
+           <br>
+
+           <div class="field">
+      <label class="label is-medium">Last Name</label>
+          <div class="control">
+        {{ form.last_name }}
+      </div>
+             <br>
+
+             <div class="field">
+      <label class="label is-medium">Location</label>
+          <div class="control">
+        {{ form.location }}
+      </div>
+
+               <br>
+
+               <div class="field">
+      <label class="label is-medium">Url</label>
+          <div class="control">
+        {{ form.url }}
+      </div>
+                 <br>
+
+                 <div class="field">
+      <label class="label is-medium">Profile Info</label>
+          <div class="control">
+        {{ form.profile_info }}
+      </div>
+                   <br>
+
+                   <div class="field">
+  <p class="control">
+    <button type="submit" value="Edit Profile" class="button is-success">
+      Update Profile
+    </button>
+  </p>
+</div>
+
+                 </div>
+               </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

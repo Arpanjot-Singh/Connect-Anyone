@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect Anyone</title>
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.png' %}" width="30" height="30">
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                   data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a href="{% url 'index' %}" class="navbar-item">
+                        <span class="material-icons md-24">home</span>
+                        Home
+                    </a>
+
+                     <a href="{% url 'search' %}" class="navbar-item">
+                        <span class="material-icons md-24">search</span>
+                        Search
+                    </a>
+                    <a href="{% url 'inbox' %}"class="navbar-item">
+                        <span class="material-icons md-24">inbox</span>
+                        Inbox
+                        {% if directs_count %}
+                        <span class="badge">{{ directs_count }}</span>
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'show-notification' %}" class="navbar-item">
+                        <span class="material-icons md-24">notifications</span>
+                        Notifications
+                        {% if count_notifications %}
+                        <span class="badge">{{ count_notifications }}</span>
+                        {% endif %}
+                    </>
+                    <a href="{% url 'profile' request.user %}" class="navbar-item">
+                        <span class="material-icons md-24">face</span>
+                        <strong>{{request.user}}</strong>
+                    </a>
+                    <a href="{% url 'newpost'%}"class="navbar-item">
+                        <span class="material-icons md-24">perm_media</span>
+                        New Post
+                    </a>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <span class="material-icons md-24">settings</span>
+                            Setting
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a href="{% url 'change_password'%}" class="navbar-item">
+                                Change Password
+                            <hr class="navbar-divider">
+                            <a href="{% url 'login' %}"class="navbar-item">
+                                Log Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </nav>
+    </div>
+    {% block banner %}
+            {% endblock %}
+
+    <section clas="section">
+        <div class="container">
+
+            {% block content %}
+            {% endblock %}
+
+            {% block paginations %}
+            {% endblock %}
+
+    </div>
+</section>
+</body>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'js/init.js' %}"></script>
+<script src="{% static 'js/slider.js' %}"></script>
+</html>
