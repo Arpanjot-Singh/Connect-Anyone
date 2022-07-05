@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 	$('.showModal').click(function(event){
 		modal.addClass('is-active');
-	}};
+	});
 
 	$('#closeModal').click(function(event){
 		modal.removeClass('is-active');
